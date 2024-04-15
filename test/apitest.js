@@ -1,3 +1,4 @@
+require("dotenv/configure");
 var OAuth = require('oauth')
 // `npm install oauth` to satisfy
 // website: https://github.com/ciaranj/node-oauth
