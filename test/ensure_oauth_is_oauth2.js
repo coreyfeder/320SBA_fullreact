@@ -2,28 +2,17 @@
 //   https://github.com/ciaranj/node-oauth
 // https://api.thenounproject.com/examples/nodejs_example.html
 
-// require('dotenv').config();
 import "dotenv/config";
-
-/*
-const inspect = require('util').inspect;  // static
-// import { inspect } from "node:util";  // module
-// const { inspect } = await import("util");  // dynamic
- */
-
+import { inspect } from "util";
+import { OAuth, OAuth2 } from 'oauth';
 
 const NOUN_KEY = process.env.NOUN_KEY;
 const NOUN_SECRET = process.env.NOUN_SECRET;
+// these aren't usually the same site.
 const iconApiAuth = "https://api.thenounproject.com"
 const iconApiBase = "https://api.thenounproject.com/v2"
 
-function iconApiCallback(e, data, res) {
-    if (e) console.error(e)
-    // console.log(require('util').inspect(data))
-    // console.debug(inspect(data))
-    console.log(data)
-}
-
+// TODO: make these more useful.
 const iconApiEndpoints = {
     collection: {
         method: "GET",
@@ -57,19 +46,16 @@ const iconApiEndpoints = {
     },
 }
 
+var responses = []
 
-// ==================================== //
-// WIP: Confirn this is using OAuth2.0
+// let icon_id_sample = "6324"
+// let iconMetaUrl= iconApiBase + iconApiEndpoints.icon.path(1);
+// console.log(iconMetaUrl)
 
-// const OAuth = require('oauth');
-import { OAuth, OAuth2 } from 'oauth';
+console.log("---OAUTH 1---")
+console.log("1: Get credentialed")
 
-debugger
-
-
-// This presents the credentials and receives an access token.
-// But...where does it go?
-const oauth = new OAuth(
+const oauth = await new OAuth(
     iconApiAuth,    // requestUrl
     iconApiAuth,    // accessUrl
     NOUN_KEY,       // consumerKey
@@ -77,70 +63,59 @@ const oauth = new OAuth(
     "1.0",          // version
     null,           // authorize_callback  ...WAIT, WHAT? the callback can be null??
     "HMAC-SHA1",    // signatureMethod
-/*  also available:
+    /*  also available:
     undefined,      // nonceSize?: number | undefined
     undefined,      // customHeaders?: OutgoingHttpHeaders | undefined
- */
+    */
 )
 
+console.log("1: Get icon 1")
+
+function iconApiCallback(e, ...args) {
+    if (e) console.error(e)
+    console.debug(inspect(args))
+}
+
+let response1 = await oauth.get(
+    iconApiBase + iconApiEndpoints.icon.path(1),  // url
+    null,  // oauth_token
+    null,  // oauth_token_secret
+    iconApiCallback,  // callback
+)
+console.log(`\n(outside) response1: ${response1}`)
+console.log(inspect(response1))
+
+console.log("---OAuth 1 is done.")
+
+
+// ==================================== //
+// TODO: WIP: But it _should_ be using OAuth2
+console.log("---OAUTH 2---")
+
+console.log("2: Get credentialed")
 const oauth2 = new OAuth2(
     NOUN_KEY,           // clientId: string,
     NOUN_SECRET,        // clientSecret: string,
     iconApiAuth,        // baseSite: string,
                         // authorizePath ?: string | undefined,
-                        // accessTokenPath ?: string | undefined,
+    'oauth2/token',     // accessTokenPath ?: string | undefined,
                         // customHeaders ?: OutgoingHttpHeaders | undefined
 )
 
-// manually get the token?
-// wait, did OAuth2 have more steps?
-// let oauth2AccessToken =
-    // oauth2.buildAuthHeader(token: string): string
-    // oauth2.getAuthorizeUrl(params?: any): string
-import { inspect } from "util"
-console.log("OAuth2 object 'oauth2'")
-console.log(inspect(oauth2))
-
-// ---
-/*
-// Okay, this works...
-oauth.get(
-    'https://api.thenounproject.com/v2/icon/6324',
-    null,
-    null,
-    function (e, data, res){
-        if (e) console.error(e)
-        console.log(data)
-    }
+console.log("2: Get MORE credentialed")
+let response2 = await oauth2.getOAuthAccessToken(
+    '',
+    {'grant_type':'client_credentials'},
+    iconApiCallback,
 )
- */
-let icon_id_sample = "6324"
-let iconMetaUrl = iconApiBase + iconApiEndpoints.icon.path(icon_id_sample);
-console.log(iconMetaUrl)
+console.log(`response2: ${response2}`)
+console.log(inspect(response2))
 
-console.log("---OAUTH---")
-oauth.get(
-    iconMetaUrl,  // url
-    null,  // oauth_token
-    null,  // oauth_token_secret
-    iconApiCallback,  // callback: ClientRequest
-)
+console.log("\n\nInspect the response array:")
+console.log(inspect(responses, { showHidden: false }))
+console.log(inspect(responses, { showHidden: true }))
 
 
-console.log("---OAUTH2---")
+console.log("  Get icon 2")
 
-/*
-// schema:
-get(
-    url: string,
-    access_token: string,
-    callback: dataCallback
-): void
-// ...looks like i need that access_token
- */
-
-oauth2.get(
-    iconMetaUrl,        // url
-    null,               // access_token
-    iconApiCallback,    // callback: ClientRequest
-)
+// iconMetaUrl = iconApiBase + iconApiEndpoints.icon.path(2);
