@@ -2,7 +2,7 @@
 
 Some talented people can say, "I'm a vegetarian" in Vietnamese, "where can I bathe?" in Bangla, and "I need a hospital!" in Hindi. The rest of us may need a little help. Until AI proves more reliable than that linguistic prankster known as "Google Translate," don't risk embarrassing pronunciation missteps and dangerous misunderstandings. _See_ exactly what you're saying.
 
-
+Now, you can propose drinks and dancing to that dapper dude despite not knowing Dutch, and you can successfully and safely sample the specialty Scandanavian sushi without a single word of Swedish Sign Language OH FOR GOD'S SAKE THIS IS @%&^%$# UP I QUIT
 
 
 # SBA 320
@@ -40,6 +40,8 @@ Using:
 * persistent storage
 * superimpose a 🚫 over any image
 * pull in images from multiple sources
-    - including built-in emoji
-    - including small .png & .svg images on the device
+    - built-in emoji
+    - small .png & .svg images on the device
+    - first image in Wikipedia
+    - first image in Google
 * voice input

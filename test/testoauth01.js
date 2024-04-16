@@ -33,12 +33,18 @@ oauth.get(
     }
 )
 
+// ---
+
+// Wait, wasn't this the OAuth2 script? ...
+
 const iconApiBase = "https://api.thenounproject.com/v2/"
+
 function iconApiCallback(e, data, res) {
     if (e) console.error(e)
     // console.log(require('util').inspect(data))
     console.debug(inspect(data))
 }
+
 const iconApiEndpoints = {
     collection: {
         method: "GET",
