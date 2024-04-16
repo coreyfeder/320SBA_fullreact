@@ -3,14 +3,14 @@ var OAuth = require('oauth')
 // `npm install oauth` to satisfy
 // website: https://github.com/ciaranj/node-oauth
 
-var KEY = "<INSERT KEY HERE>"
-var SECRET = "<INSERT SECRET HERE>"
+var NOUN_KEY = "process.env.NOUN_KEY"
+var NOUN_SECRET = "process.env.NOUN_SECRET"
 
 var oauth = new OAuth.OAuth(
         'https://api.thenounproject.com',
         'https://api.thenounproject.com',
-        KEY,
-        SECRET,
+        NOUN_KEY,
+        NOUN_SECRET,
         '1.0',
         null,
         'HMAC-SHA1'
