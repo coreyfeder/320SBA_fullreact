@@ -62,14 +62,13 @@ const iconApiEndpoints = {
 // WIP: Confirn this is using OAuth2.0
 
 // const OAuth = require('oauth');
-import { OAuth } from 'oauth';
-// import { OAuth2 } from 'oauth';
+import { OAuth, OAuth2 } from 'oauth';
 
 debugger
 
 
-// This presents the credentials and receives a bearer token.
-
+// This presents the credentials and receives an access token.
+// But...where does it go?
 const oauth = new OAuth(
     iconApiAuth,    // requestUrl
     iconApiAuth,    // accessUrl
@@ -84,6 +83,23 @@ const oauth = new OAuth(
  */
 )
 
+const oauth2 = new OAuth2(
+    NOUN_KEY,           // clientId: string,
+    NOUN_SECRET,        // clientSecret: string,
+    iconApiAuth,        // baseSite: string,
+                        // authorizePath ?: string | undefined,
+                        // accessTokenPath ?: string | undefined,
+                        // customHeaders ?: OutgoingHttpHeaders | undefined
+)
+
+// manually get the token?
+// wait, did OAuth2 have more steps?
+// let oauth2AccessToken =
+    // oauth2.buildAuthHeader(token: string): string
+    // oauth2.getAuthorizeUrl(params?: any): string
+import { inspect } from "util"
+console.log("OAuth2 object 'oauth2'")
+console.log(inspect(oauth2))
 
 // ---
 /*
@@ -102,9 +118,29 @@ let icon_id_sample = "6324"
 let iconMetaUrl = iconApiBase + iconApiEndpoints.icon.path(icon_id_sample);
 console.log(iconMetaUrl)
 
+console.log("---OAUTH---")
 oauth.get(
     iconMetaUrl,  // url
     null,  // oauth_token
     null,  // oauth_token_secret
     iconApiCallback,  // callback: ClientRequest
+)
+
+
+console.log("---OAUTH2---")
+
+/*
+// schema:
+get(
+    url: string,
+    access_token: string,
+    callback: dataCallback
+): void
+// ...looks like i need that access_token
+ */
+
+oauth2.get(
+    iconMetaUrl,        // url
+    null,               // access_token
+    iconApiCallback,    // callback: ClientRequest
 )
