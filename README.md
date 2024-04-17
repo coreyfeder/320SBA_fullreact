@@ -15,16 +15,19 @@ Using:
 - react
 - react-router-dom
 - react-redux
-- oauth
-
-Not needed, I think, so far:
-- express
+- oauth  <-- **Use `oauth-v2-client` or `axios-oauth-client`?**
 
 Unclear:
+- @reduxjs/toolkit
+    - Redux Toolkit
+    - https://redux-toolkit.js.org/
 - axios
 - dotenv: can I use it in an App? or do I need to run everything through my backend?
 - mongoose: I might need this for persisting any data, but I'd rather it be local to the client
 - react-???-dom?
+
+Probably Not:
+- express
 
 ## Server
 

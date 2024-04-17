@@ -1,27 +1,15 @@
 // https://api.thenounproject.com/examples/nodejs_example.html
 
 import "dotenv/config";
-
-// const inspect = require('util').inspect;  // static
-import { inspect } from "node:util";  // module
-// const { inspect } = await import("util");  // dynamic
-
-import { OAuth } from 'oauth';
-// const OAuth = require('oauth');
-// website: https://github.com/ciaranj/node-oauth
+import { inspect } from "node:util";
+import { OAuth } from 'oauth';  // https://github.com/ciaranj/node-oauth
 
 const NOUN_KEY = process.env.NOUN_KEY;
 const NOUN_SECRET = process.env.NOUN_SECRET;
+const iconApiAuth = "https://api.thenounproject.com"
+const iconApiBase = "https://api.thenounproject.com/v2"
 
-function iconApiCallback(e, ...args) {
-    if (e) console.error(e)
-    // console.log(require('util').inspect(data))
-    console.log(Object.keys(args))
-    console.debug(inspect(args))
-}
-
-
-const oauth = new OAuth(
+const oauth = await new OAuth(
     iconApiAuth,    // requestUrl
     iconApiAuth,    // accessUrl
     NOUN_KEY,       // consumerKey
@@ -34,18 +22,33 @@ const oauth = new OAuth(
     undefined,      // customHeaders?: OutgoingHttpHeaders | undefined
     */
 )
-oauth.get(
+
+
+
+
+// ------------
+// Making the requests
+
+// 1. do I need a callback function for the calls?
+// 2. once auth'd, can I
+function iconApiCallback(e, body, res) {
+    if (e) console.error(e)
+    // console.log(require('util').inspect(data))
+    // console.log(Object.keys(args))
+    let data = JSON.parse(body)
+    if (data) console.debug("data parsed")
+    return data
+}
+
+let assetRequest = await oauth.get(
     'https://api.thenounproject.com/v2/icon/6324',
     null,
     null,
     iconApiCallback,
 )
+console.log("assetRequest")
+console.log(assetRequest)
 
-// ---
-
-// Wait, wasn't this the OAuth2 script? ...
-
-const iconApiBase = "https://api.thenounproject.com/v2/"
 
 const iconApiEndpoints = {
     collection: {
