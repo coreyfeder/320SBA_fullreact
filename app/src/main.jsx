@@ -11,7 +11,6 @@ const reactroot = ReactDOM.createRoot(docroot)
 reactroot.render(
     <React.StrictMode>
         <BrowserRouter>
-            <h2>src/main.jsx: entering app</h2>
             <App />
         </BrowserRouter>
     </React.StrictMode>,
