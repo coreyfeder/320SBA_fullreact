@@ -1,7 +1,7 @@
 // import { useState } from "react"
 
 import "./App.css"
-import logo from "./assets/logo.jsx"
+// import logo from "./assets/logo.jsx"
 
 // import MyComponent from "./Components/MyComponent/MyComponent.jsx"
 import Card from "./components/Card/Card.jsx"
