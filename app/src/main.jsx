@@ -10,9 +10,9 @@ const docroot = document.getElementById("root")
 const reactroot = ReactDOM.createRoot(docroot)
 reactroot.render(
     <React.StrictMode>
-        // <BrowserRouter>
+        <BrowserRouter>
             <h2>src/main.jsx: entering app</h2>
-            // <App />
-        // </BrowserRouter>
+            <App />
+        </BrowserRouter>
     </React.StrictMode>,
 )
