@@ -12,9 +12,10 @@ function App() {
     const image = <img src="" alt="https://em-content.zobj.net/source/joypixels/369/ok-button_1f197.png" />;
 
     return (
-        <>
+        <div className="App">
             <Card image={image} />
-        </>
+            <Card image={image} />
+        </div>
     )
 }
 
