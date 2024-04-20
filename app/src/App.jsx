@@ -3,8 +3,8 @@
 import "./App.css"
 // import logo from "./assets/logo.jsx"
 
-// import MyComponent from "./Components/MyComponent/MyComponent.jsx"
 import Card from "./components/Card/Card.jsx"
+import Phrase from "./components/Phrase/Phrase.jsx"
 
 function App() {
     // const [count, setCount] = useState(0)
@@ -18,11 +18,17 @@ function App() {
         thumbsdown: {src: "https://em-content.zobj.net/source/apple/391/thumbs-down_1f44e.png", alt: "thumbs down"},
     }
 
+    const samplePhrases = [
+        <Phrase name="peanut allergy">
+                <Card image={sampleImages.peanuts} />
+                <Card image={sampleImages.equals} />
+                <Card image={sampleImages.death} />
+        </Phrase>,
+    ]
+
     return (
         <div className="App">
-            <Card image={sampleImages.peanuts} />
-            <Card image={sampleImages.equals} />
-            <Card image={sampleImages.death} />
+            {samplePhrases[0]}
         </div>
     )
 }

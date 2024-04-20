@@ -1,3 +1,5 @@
 .Phrase {
     border: brown dotted thin;
+    width: 100%;
+    display: inline-flex;
 }
